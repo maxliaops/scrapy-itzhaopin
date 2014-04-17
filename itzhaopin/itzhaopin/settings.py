@@ -13,3 +13,10 @@ NEWSPIDER_MODULE = 'itzhaopin.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'itzhaopin (+http://www.yourdomain.com)'
+
+ITEM_PIPELINES = {
+    'itzhaopin.pipelines.JsonWithEncodingTencentPipeline': 300,
+}
+
+LOG_LEVEL = 'INFO'
+

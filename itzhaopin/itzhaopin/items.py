@@ -5,7 +5,11 @@
 
 from scrapy.item import Item, Field
 
-class ItzhaopinItem(Item):
-    # define the fields for your item here like:
-    # name = Field()
-    pass
+class TencentItem(Item):
+    name = Field()
+    catalog = Field()
+    workLocation = Field()
+    recruitNumber = Field()
+    detailLink = Field()
+    publishTime = Field()
+

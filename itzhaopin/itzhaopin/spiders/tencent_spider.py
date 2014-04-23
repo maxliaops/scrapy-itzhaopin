@@ -8,6 +8,7 @@ try:
 except:
     from scrapy.spider import BaseSpider as Spider
 from scrapy.utils.response import get_base_url
+from scrapy.utils.url import urljoin_rfc
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor as sle
 
@@ -29,12 +30,13 @@ class TencentSpider(CrawlSpider):
     def parse_item(self, response):
         items = []
         sel = Selector(response)
-
+        base_url = get_base_url(response)
         sites_even = sel.css('table.tablelist tr.even')
         for site in sites_even:
             item = TencentItem()
             item['name'] = site.css('.l.square a').xpath('text()').extract()
-            item['detailLink'] = site.css('.l.square a').xpath('@href').extract()
+            relative_url = site.css('.l.square a').xpath('@href').extract()[0]
+            item['detailLink'] = urljoin_rfc(base_url, relative_url)
             item['catalog'] = site.css('tr > td:nth-child(2)::text').extract()
             item['workLocation'] = site.css('tr > td:nth-child(4)::text').extract()
             item['recruitNumber'] = site.css('tr > td:nth-child(3)::text').extract()
@@ -46,7 +48,8 @@ class TencentSpider(CrawlSpider):
         for site in sites_odd:
             item = TencentItem()
             item['name'] = site.css('.l.square a').xpath('text()').extract()
-            item['detailLink'] = site.css('.l.square a').xpath('@href').extract()
+            relative_url = site.css('.l.square a').xpath('@href').extract()[0]
+            item['detailLink'] = urljoin_rfc(base_url, relative_url)
             item['catalog'] = site.css('tr > td:nth-child(2)::text').extract()
             item['workLocation'] = site.css('tr > td:nth-child(4)::text').extract()
             item['recruitNumber'] = site.css('tr > td:nth-child(3)::text').extract()

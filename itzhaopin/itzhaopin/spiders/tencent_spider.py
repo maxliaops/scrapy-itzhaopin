@@ -34,26 +34,26 @@ class TencentSpider(CrawlSpider):
         sites_even = sel.css('table.tablelist tr.even')
         for site in sites_even:
             item = TencentItem()
-            item['name'] = site.css('.l.square a').xpath('text()').extract()
+            item['name'] = site.css('.l.square a').xpath('text()').extract()[0]
             relative_url = site.css('.l.square a').xpath('@href').extract()[0]
             item['detailLink'] = urljoin_rfc(base_url, relative_url)
-            item['catalog'] = site.css('tr > td:nth-child(2)::text').extract()
-            item['workLocation'] = site.css('tr > td:nth-child(4)::text').extract()
-            item['recruitNumber'] = site.css('tr > td:nth-child(3)::text').extract()
-            item['publishTime'] = site.css('tr > td:nth-child(5)::text').extract()
+            item['catalog'] = site.css('tr > td:nth-child(2)::text').extract()[0]
+            item['workLocation'] = site.css('tr > td:nth-child(4)::text').extract()[0]
+            item['recruitNumber'] = site.css('tr > td:nth-child(3)::text').extract()[0]
+            item['publishTime'] = site.css('tr > td:nth-child(5)::text').extract()[0]
             items.append(item)
             #print repr(item).decode("unicode-escape") + '\n'
 
         sites_odd = sel.css('table.tablelist tr.odd')
         for site in sites_odd:
             item = TencentItem()
-            item['name'] = site.css('.l.square a').xpath('text()').extract()
+            item['name'] = site.css('.l.square a').xpath('text()').extract()[0]
             relative_url = site.css('.l.square a').xpath('@href').extract()[0]
             item['detailLink'] = urljoin_rfc(base_url, relative_url)
-            item['catalog'] = site.css('tr > td:nth-child(2)::text').extract()
-            item['workLocation'] = site.css('tr > td:nth-child(4)::text').extract()
-            item['recruitNumber'] = site.css('tr > td:nth-child(3)::text').extract()
-            item['publishTime'] = site.css('tr > td:nth-child(5)::text').extract()
+            item['catalog'] = site.css('tr > td:nth-child(2)::text').extract()[0]
+            item['workLocation'] = site.css('tr > td:nth-child(4)::text').extract()[0]
+            item['recruitNumber'] = site.css('tr > td:nth-child(3)::text').extract()[0]
+            item['publishTime'] = site.css('tr > td:nth-child(5)::text').extract()[0]
             items.append(item)
             #print repr(item).decode("unicode-escape") + '\n'
 
